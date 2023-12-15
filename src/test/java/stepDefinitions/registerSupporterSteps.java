@@ -12,19 +12,23 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pages.registerSupporterPage;
 
 import static java.lang.Thread.*;
 
 public class registerSupporterSteps {
 
-    WebDriver driver = null;
+    WebDriver driver;
 
     registerSupporterPage page;
 
     @Given("I am on the registration page")
     public void iAmOnTheRegistrationPage() {
-        //System.getProperty("webdriver.chrome.driver", "");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
         driver = new ChromeDriver();
         page = new registerSupporterPage(driver);
 
