@@ -2,6 +2,10 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class registerSupporterPage {
 
@@ -19,12 +23,13 @@ public class registerSupporterPage {
     By checkbox_termsAndConditions = By.xpath("//*[@id=\"signup_form\"]/div[11]/div/div[2]/div[1]/label");
     By checkbox_ageVerifier = By.xpath("//*[@id=\"signup_form\"]/div[11]/div/div[2]/div[2]/label");
     By checkbox_ethicsAndConduct = By.xpath("//*[@id=\"signup_form\"]/div[11]/div/div[7]/label");
-    By button_ConfirmAndJoin = By.xpath("//*[@id=\"signup_form\"]/div[12]/input");
 
     By span_lastnameErrorMessage = By.xpath("//*[@id=\"signup_form\"]/div[5]/div[2]/div/span/span");
     By span_unmatchedPasswordsErrorMessage = By.xpath("//*[@id=\"signup_form\"]/div[8]/div/div[2]/div[2]/div/span/span");
     By span_acceptTermsAndConditionsErrorMessage = By.xpath("//*[@id=\"signup_form\"]/div[11]/div/div[2]/div[1]/span/span");
 
+    By button_yourLocker = By.xpath("/html/body/div/div[2]/div/div/div[2]/a");
+    By button_ConfirmAndJoin = By.xpath("//*[@id=\"signup_form\"]/div[12]/input");
     //</editor-fold>
     public registerSupporterPage(WebDriver driver)
     {
@@ -107,10 +112,16 @@ public class registerSupporterPage {
         return driver.findElement(span_acceptTermsAndConditionsErrorMessage).getText();
     }
 
+    public boolean IsLockerButtonDisplayed()
+    {
+        WaitForElementToBeVisible(button_yourLocker, 10);
+        return driver.findElement(button_yourLocker).isDisplayed();
+    }
+
     public void ClickOnConfirmAndJoinButton(){driver.findElement(button_ConfirmAndJoin).click();}
     //</editor-fold>
 
-    public void registerValidSupporter(String dateOfBirth, String firstname, String lastname, String email, String password)
+    public void RegisterValidSupporter(String dateOfBirth, String firstname, String lastname, String email, String password)
     {
         driver.findElement(txt_dateOfBirth).sendKeys(dateOfBirth);
         driver.findElement(txt_firstname).sendKeys(firstname);
@@ -126,7 +137,7 @@ public class registerSupporterPage {
         driver.findElement(checkbox_fanRole).click();
     }
 
-    public void registerSupporterWithoutLastname(String dateOfBirth, String firstname, String email, String password)
+    public void RegisterSupporterWithoutLastname(String dateOfBirth, String firstname, String email, String password)
     {
         driver.findElement(txt_dateOfBirth).sendKeys(dateOfBirth);
         driver.findElement(txt_firstname).sendKeys(firstname);
@@ -141,7 +152,7 @@ public class registerSupporterPage {
         driver.findElement(checkbox_fanRole).click();
     }
 
-    public void registerSupporterWithUnmatchedPasswords(String dateOfBirth, String firstname, String lastname, String email, String password, String confirmPassword)
+    public void RegisterSupporterWithUnmatchedPasswords(String dateOfBirth, String firstname, String lastname, String email, String password, String confirmPassword)
     {
         driver.findElement(txt_dateOfBirth).sendKeys(dateOfBirth);
         driver.findElement(txt_firstname).sendKeys(firstname);
@@ -152,7 +163,7 @@ public class registerSupporterPage {
         driver.findElement(txt_confirmPassword).sendKeys(confirmPassword);
     }
 
-    public void registerSupporterWithoutAcceptTermsAndConditions(String dateOfBirth, String firstname, String lastname, String email, String password)
+    public void RegisterSupporterWithoutAcceptTermsAndConditions(String dateOfBirth, String firstname, String lastname, String email, String password)
     {
         driver.findElement(txt_dateOfBirth).sendKeys(dateOfBirth);
         driver.findElement(txt_firstname).sendKeys(firstname);
@@ -164,5 +175,10 @@ public class registerSupporterPage {
         driver.findElement(checkbox_ageVerifier).click();
         driver.findElement(checkbox_ethicsAndConduct).click();
         driver.findElement(checkbox_fanRole).click();
+    }
+
+    private void WaitForElementToBeVisible(By locator, int timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 }
