@@ -28,7 +28,6 @@ public class registerSupporterSteps {
         String browserType = System.getProperty("browserType") != null ? System.getProperty("browserType") : "chrome";
         driver = initializeWebDriver(browserType);
         page = new registerSupporterPage(driver);
-        System.out.println(browserType);
     }
 
     @Given("I am on the registration page")
