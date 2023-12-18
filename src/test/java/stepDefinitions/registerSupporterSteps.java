@@ -29,13 +29,13 @@ public class registerSupporterSteps {
         page = new registerSupporterPage(driver);
     }
 
-    @Given("I am on the registration page")
-    public void IamOnTheRegistrationPage() {
-    driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
+    @Given("User is on the registration page")
+    public void user_is_on_the_registration_page() {
+        driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
     }
 
-    @When("I provide my date of birth {string} and my firstname {string} and my lastname {string} and my email {string} and my password {string}")
-    public void IProvideMyDateOfBirthAndMyFirstnameAndMyLastnameAndMyEmailAndMyPassword(String dateOfBirth, String firstname, String lastname, String email, String password) {
+    @When("User provide users date of birth {string} and users firstname {string} and users lastname {string} and users email {string} and users password {string}")
+    public void user_Provide_the_users_dateOfBirth_and_the_users_firstname_and_the_users_lastname_and_the_users_email_and_the_users_password(String dateOfBirth, String firstname, String lastname, String email, String password) {
         registerSupporterPage page = new registerSupporterPage(driver);
 
         firstname = generateRandomString(firstname, 6);
@@ -48,48 +48,48 @@ public class registerSupporterSteps {
     }
 
     @And("User clicks on the Confirm and join button")
-    public void UserClicksOnTheConfirmAndJoinButton() throws InterruptedException {
+    public void user_clicks_on_the_Confirm_And_Join_Button() throws InterruptedException {
         page.ClickOnConfirmAndJoinButton();
     }
 
-    @Then("I should be on the confirmation page")
-    public void IShouldBeOnTheConfirmationPage() {
+    @Then("User should be on the confirmation page")
+    public void user_should_be_on_the_confirmation_page() {
 
         Assert.assertTrue(page.IsLockerButtonDisplayed());
         driver.quit();
     }
 
-    @When("I provide my date of birth {string} and my firstname {string} and my email {string} and my password {string} but not the lastname")
-    public void IProvideMyDateOfBirthAndMyFirstnameAndMyEmailAndMyPasswordButNotTheLastname(String dateOfBirth, String firstname, String email, String password) {
+    @When("User provide users date of birth {string} and users firstname {string} and users email {string} and users password {string} but not the lastname")
+    public void user_provide_the_users_date_of_birth_and_the_users_firstname_and_the_users_email_and_the_users_password_but_not_the_lastname(String dateOfBirth, String firstname, String email, String password) {
         page.RegisterSupporterWithoutLastname(dateOfBirth, firstname, email, password);
     }
 
     @Then("User should get a error message telling that the lastname is required")
-    public void UserShouldGetAErrorMessageTellingThatTheLastnameIsRequired() {
+    public void user_should_get_an_error_message_telling_that_the_lastname_is_required() {
         Assert.assertTrue(page.IsLastNameIsMissingErrorMessageDisplayed());
         Assert.assertEquals("Last Name is required", page.LastNameIsMissingErrorMessage());
         driver.quit();
     }
 
-    @When("I provide my date of birth {string} and my firstname {string} and my lastname {string} and my email {string} and my password {string} and also confirms the password by providing the password {string} again")
-    public void IProvideMyDateOfBirthAndMyFirstnameAndMyLastnameAndMyEmailAndMyPasswordAndAlsoConfirmsThePasswordByProvidingThePasswordAgain(String dateOfBirth, String firstname, String lastname, String email, String password, String confirmPassword) {
+    @When("User provide the users date of birth {string} and the users firstname {string} and the users lastname {string} and the users email {string} and the users password {string} and also confirms the password by providing the password {string} again")
+    public void user_provides_the_Users_dateOfBirth_and_the_users_firstname_and_the_users_lastname_and_the_users_email_and_the_users_password_and_also_confirms_the_password_by_providing_the_password_again(String dateOfBirth, String firstname, String lastname, String email, String password, String confirmPassword) {
         page.RegisterSupporterWithUnmatchedPasswords(dateOfBirth, firstname, lastname, email, password, confirmPassword);
     }
 
     @Then("User should get a error message telling that the passwords doesn't match")
-    public void UserShouldGetAErrorMessageTellingThatThePasswordsDoesntMatch() {
+    public void user_should_get_an_error_message_telling_that_the_passwords_doesnt_match() {
         Assert.assertTrue(page.IsUnmatchedPasswordsErrorMessageDisplayed());
         Assert.assertEquals("Password did not match", page.UnmatchedPasswordsErrorMessage());
         driver.quit();
     }
 
-    @When("I provide my date of birth {string} and my firstname {string} and my lastname {string} and my email {string} and my password {string} but not the but don't accept the Terms & conditions")
-    public void IProvideMyDateOfBirthAndMyFirstnameAndMyLastnameAndMyEmailAndMyPasswordButNotTheButDontAcceptTheTermsConditions(String dateOfBirth, String firstname, String lastname, String email, String password) {
+    @When("User provide users date of birth {string} and users firstname {string} and users lastname {string} and users email {string} and users password {string} but not the but don't accept the Terms & conditions")
+    public void user_provides_the_users_dateOfBirth_and_the_users_firstname_and_the_users_lastname_and_the_users_email_and_theusers_password_but_not_the_but_dont_accept_the_terms_and_conditions(String dateOfBirth, String firstname, String lastname, String email, String password) {
         page.RegisterSupporterWithoutAcceptTermsAndConditions(dateOfBirth, firstname, lastname, email, password);
     }
 
     @Then("User should get a error message telling that the user must accept the terms & conditions")
-    public void UserShouldGetAErrorMessageTellingThatTheUserMustAcceptTheTermsConditions() {
+    public void user_should_get_an_error_message_telling_that_the_user_must_accept_the_terms_and_conditions() {
         Assert.assertTrue(page.IsTermsAndConditionsErrorMessageDisplayed());
         Assert.assertEquals("You must confirm that you have read and accepted our Terms and Conditions", page.TermsAndConditionsErrorMessage());
         driver.quit();
